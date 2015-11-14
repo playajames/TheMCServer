@@ -1,0 +1,8 @@
+name: TMCS
+main: me.playajames.tmcs.Main
+version: 0.2
+author: playajames
+
+commands:
+  tmcs:
+    description: The Minecraft Server main command.

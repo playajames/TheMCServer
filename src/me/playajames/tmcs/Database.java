@@ -1,4 +1,4 @@
-package me.playajames;
+package me.playajames.tmcs;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
