@@ -2,6 +2,7 @@ name: TMCS
 main: me.playajames.tmcs.Main
 version: 0.2
 author: playajames
+database: true
 
 commands:
   tmcs:

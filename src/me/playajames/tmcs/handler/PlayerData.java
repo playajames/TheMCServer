@@ -1,10 +1,9 @@
 package me.playajames.tmcs.handler;
 
-import java.util.HashMap;
-
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import me.playajames.tmcs.GlobalData;
+import me.playajames.tmcs.persistence.Players;
 
 public class PlayerData {
 	
@@ -16,33 +15,46 @@ public class PlayerData {
 	 *	address
 	 *	infractions
 	 *	money
+	 *	license
 	 *	kills
 	 *	deaths
 	 *	monsterKills
 	 *	firstJoinTimeStamp
 	 *	lastJoinTimeStamp
 	 *	lastQuitTimeStamp
+	 *	timePlayed
 	 *	data
 	 */
 	
 	public boolean create(Player player) {
-		HashMap<String,Object> map = new HashMap<String,Object>();
-		map.put("uuid", player.getUniqueId());
-		map.put("displayName", player.getDisplayName());
-		map.put("groupID", 1);
-		map.put("address", player.getAddress());
-		map.put("infractions", 0);
-		map.put("money", 0);
-		map.put("kills", 0);
-		map.put("deaths", 0);
-		map.put("monsterKills", 0);
-		map.put("firstJoinTimeStamp", null);
-		map.put("lastJoinTimeStamp", null);
-		map.put("lastQuitTimeStamp", null);
-		map.put("data", null);
-		if (put(player, map)) {
+		try {
+			String uuid = player.getUniqueId().toString();
+			Players playerClass = (Players) new Players().get(uuid, null);
+			if (playerClass == null) {
+				playerClass = new Players();
+			} else {
+				return false;
+			}
+			playerClass.setUuid(uuid);
+			playerClass.setDisplayName(player.getDisplayName());
+			playerClass.setGroupID(1);
+			playerClass.setAddress(player.getAddress().toString());
+			playerClass.setInfractions(0);
+			playerClass.setMoney(0);
+			playerClass.setLicense(null);
+			playerClass.setKills(0);
+			playerClass.setDeaths(0);
+			playerClass.setMonsterKills(0);
+			playerClass.setFirstJoinTimestamp("string");
+			playerClass.setLastJoinTimestamp("string");
+			playerClass.setLastQuitTimestamp(null);
+			playerClass.setTimePlayed(0);
+			playerClass.setData(null);
+			Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().save(playerClass);
+			Bukkit.getServer().getLogger().info("Data created for " + player.getDisplayName() + " successfully.");
 			return true;
-		} else {
+		} catch (Exception e) {
+			System.out.println(e);
 			return false;
 		}
 	}
@@ -51,45 +63,7 @@ public class PlayerData {
 		return false;
 	}
 	
-	public boolean loadPlayer(Player player) {
-		return false;
-	}
-	
-	public boolean storeAll(Player player) {
+	public boolean saveAll(Player player) {
 		return false;
 	}	
-	
-	public boolean loadAll(Player player) {
-		return false;
-	}
-	
-	public String lookup(String key, Player player) {
-		if (GlobalData.players.get(player.getUniqueId()) != null) {
-			String str = GlobalData.players.get(player.getUniqueId()).get(key).toString();
-			return str;
-		} else if (null == null) {
-			//Lookup offline player data
-			return null;
-		} else {
-			return null;
-		}
-	}
-	
-	public boolean set(String key, Object value, Player player) {
-		if (GlobalData.players.get(player.getUniqueId()) != null) {
-			HashMap<String,Object> map = GlobalData.players.get(player.getUniqueId());
-			map.put(key, value);
-			GlobalData.players.put(player.getUniqueId(), map);
-			return true;
-		}
-		return false;
-	}
-	
-	public boolean put(Player player, HashMap<String,Object> map) {
-		if (GlobalData.players.put(player.getUniqueId(), map) != null) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 }
