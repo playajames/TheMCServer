@@ -1,5 +1,8 @@
 package me.playajames.tmcs.listeners;
 
+import java.util.Date;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,8 +21,12 @@ public class PlayerJoin implements Listener {
 	public void onJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		new Logger().playerJoin(player);
-		if (new Players().get(player.getUniqueId().toString(), null) != null) {
+		Date now = new Date();
+		Players playerClass = (Players) new Players().get(player.getUniqueId().toString(), null);
+		if (playerClass != null) {
 			player.sendMessage(GlobalData.styleChatServer + "Welcome back, " + player.getDisplayName() + ".");
+			playerClass.setLastJoinTimestamp(now.toString());
+			Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().save(playerClass);
 		} else {
 			if (new PlayerData().create(player)) {
 				player.sendMessage(GlobalData.styleChatServer + "Welcome to the server, " + player.getDisplayName() + "!");

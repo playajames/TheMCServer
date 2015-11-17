@@ -1,5 +1,7 @@
 package me.playajames.tmcs.handler;
 
+import java.util.Date;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -28,6 +30,7 @@ public class PlayerData {
 	
 	public boolean create(Player player) {
 		try {
+			Date now = new Date();
 			String uuid = player.getUniqueId().toString();
 			Players playerClass = (Players) new Players().get(uuid, null);
 			if (playerClass == null) {
@@ -45,8 +48,8 @@ public class PlayerData {
 			playerClass.setKills(0);
 			playerClass.setDeaths(0);
 			playerClass.setMonsterKills(0);
-			playerClass.setFirstJoinTimestamp("string");
-			playerClass.setLastJoinTimestamp("string");
+			playerClass.setFirstJoinTimestamp(now.toString());
+			playerClass.setLastJoinTimestamp(now.toString());
 			playerClass.setLastQuitTimestamp(null);
 			playerClass.setTimePlayed(0);
 			playerClass.setData(null);

@@ -1,0 +1,11 @@
+Permission Nodes
+
+Commands
+
+	TMCS:
+		
+
+	Database:
+		-tmcs.command.database.help
+		-tmcs.command.database.set
+		-tmcs.command.database.get

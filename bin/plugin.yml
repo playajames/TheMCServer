@@ -7,3 +7,7 @@ database: true
 commands:
   tmcs:
     description: The Minecraft Server main command.
+  database:
+    description: Database core control command.
+  db:
+    description: Alias of database command.

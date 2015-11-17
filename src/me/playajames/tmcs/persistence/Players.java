@@ -41,7 +41,7 @@ public class Players {
     private String lastJoinTimestamp;
     @Length(max = 40)
     private String lastQuitTimestamp;
-    private int timePlayed;
+    private long timePlayed;
     private String data;
     
     public void setId(int id) {
@@ -156,11 +156,11 @@ public class Players {
     	this.lastQuitTimestamp = value;
     }
     
-    public int getTimePlayed() {
+    public long getTimePlayed() {
     	return timePlayed;
     }
     
-    public void setTimePlayed(int value) {
+    public void setTimePlayed(long value) {
     	this.timePlayed = value;
     }
     
@@ -180,59 +180,61 @@ public class Players {
         this.uuid = player.getUniqueId().toString();
     }
     
-    public boolean set(String uuid, String key, Object value) {
-    	Players playerClass = Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().find(Players.class).where().ieq("uuid", uuid).findUnique();
-    	if (playerClass == null) {
+    public boolean set(String uuid, String key, String value) {
+    	Players playerClass = Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().find(this.getClass()).where().ieq("uuid", uuid).findUnique();
+    	if (key == null) {
 			return false;
 		} else {
 			try {
 				switch (key.toLowerCase()) {
 				case "displayname":
-					setDisplayName((String)value);
+					playerClass.setDisplayName(value);
 					break;
 				case "groupid":
-					setGroupID((int)value);
+					playerClass.setGroupID(Integer.parseInt(value));
 					break;
 				case "address":
-					setAddress((String)value);
+					playerClass.setAddress(value);
 					break;
 				case "infractions":
-					setInfractions((int)value);
+					playerClass.setInfractions(Integer.parseInt(value));
 					break;
 				case "money":
-					setMoney((int)value);
+					playerClass.setMoney(Integer.parseInt(value));
 					break;
 				case "license":
-					setLicense((String)value);
+					playerClass.setLicense(value);
 					break;
 				case "kills":
-					setKills((int)value);
+					playerClass.setKills(Integer.parseInt(value));
 					break;
 				case "deaths":
-					setDeaths((int)value);
+					playerClass.setDeaths(Integer.parseInt(value));
 					break;
 				case "monsterkills":
-					setMonsterKills((int)value);
+					playerClass.setMonsterKills(Integer.parseInt(value));
 					break;
 				case "firstjointimestamp":
-					setFirstJoinTimestamp((String)value);
+					playerClass.setFirstJoinTimestamp(value);
 					break;
 				case "lastjointimestamp":
-					setLastJoinTimestamp((String)value);
+					playerClass.setLastJoinTimestamp(value);
 					break;
 				case "lastquittimestamp":
-					setLastQuitTimestamp((String)value);
+					playerClass.setLastQuitTimestamp(value);
 					break;
 				case "timeplayed":
-					setTimePlayed((int)value);
+					playerClass.setTimePlayed(Integer.parseInt(value));
 					break;
 				case "data":
-					setData((String)value);
+					playerClass.setData(value);
 					break;
 				default:
 					return false;
 				}
+				Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().save(playerClass);
 			} catch(Exception e) {
+				System.out.println(e);
 				return false;
 			}
 		}
@@ -240,7 +242,7 @@ public class Players {
     }
     
 	public Object get(String uuid, String key) {
-    	Players playerClass = Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().find(Players.class).where().ieq("uuid", uuid).findUnique();
+    	Players playerClass = Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().find(this.getClass()).where().ieq("uuid", uuid).findUnique();
     	if (playerClass == null) {
 			return null;
 		} else if (key == null) {
@@ -249,39 +251,42 @@ public class Players {
 			try {
 				switch (key.toLowerCase()) {
 				case "id":
-					return (int) getId();
+					return (int) playerClass.getId();
+				case "uuid":
+					return (String) playerClass.getUuid();
 				case "displayname":
-					return (String) getDisplayName();
+					return (String) playerClass.getDisplayName();
 				case "groupid":
-					return (int) getGroupID();
+					return (int) playerClass.getGroupID();
 				case "address":
-					return (String) getAddress();
+					return (String) playerClass.getAddress();
 				case "infractions":
-					return (int) getInfractions();
+					return (int) playerClass.getInfractions();
 				case "money":
-					return (int)getMoney();
+					return (int) playerClass.getMoney();
 				case "license":
-					return (String) getLicense();
+					return (String) playerClass.getLicense();
 				case "kills":
-					return (int) getKills();
+					return (int) playerClass.getKills();
 				case "deaths":
-					return (int) getDeaths();
+					return (int) playerClass.getDeaths();
 				case "monsterkills":
-					return (int) getMonsterKills();
+					return (int) playerClass.getMonsterKills();
 				case "firstjointimestamp":
-					return (String) getFirstJoinTimestamp();
+					return (String) playerClass.getFirstJoinTimestamp();
 				case "lastjointimestamp":
-					return (String) getLastJoinTimestamp();
+					return (String) playerClass.getLastJoinTimestamp();
 				case "lastquittimestamp":
-					return (String) getLastQuitTimestamp();
+					return (String) playerClass.getLastQuitTimestamp();
 				case "timeplayed":
-					return (int) getTimePlayed();
+					return (long) playerClass.getTimePlayed();
 				case "data":
-					return (String) getData();
+					return (String) playerClass.getData();
 				default:
 					return false;
 				}
 			} catch(Exception e) {
+				System.out.println(e);
 				return false;
 			}
 		}

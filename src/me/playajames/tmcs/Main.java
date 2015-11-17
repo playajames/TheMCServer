@@ -7,6 +7,7 @@ import javax.persistence.PersistenceException;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import me.playajames.tmcs.commands.Database;
 import me.playajames.tmcs.commands.TMCS;
 import me.playajames.tmcs.listeners.EntityDeath;
 import me.playajames.tmcs.listeners.PlayerBreakBlock;
@@ -35,7 +36,9 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new EntityDeath(), this);
 
 		// Register Commands
-		this.getCommand("tmcs").setExecutor(new TMCS(this));
+		this.getCommand("tmcs").setExecutor(new TMCS());
+		this.getCommand("database").setExecutor(new Database(this));
+		this.getCommand("db").setExecutor(new Database(this));
 	}
 	
 	private void setupDatabase() {
