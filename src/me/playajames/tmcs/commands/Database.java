@@ -73,7 +73,9 @@ public class Database implements CommandExecutor {
 				return true;
 			}
 		} else if (sender instanceof ConsoleCommandSender) {
-			
+			System.out.println("This command is only avaliable to players at this time.");
+		} else {
+			return false;
 		}
 		return true;
 	}

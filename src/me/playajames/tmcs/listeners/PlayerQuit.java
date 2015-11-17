@@ -30,7 +30,7 @@ public class PlayerQuit implements Listener {
 			Date lastJoin = null;
 			lastJoin = formatter.parse(lastJoinString);
 			long diff = now.getTime() - lastJoin.getTime();
-			long diffSeconds = diff / 1000 % 60;
+			long diffSeconds = diff / 1000;
 			long result = diffSeconds + timePlayed;
 			playerClass.setTimePlayed(result);
 			playerClass.setLastQuitTimestamp(now.toString());
