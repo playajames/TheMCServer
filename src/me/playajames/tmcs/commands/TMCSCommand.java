@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import me.playajames.tmcs.GlobalData;
 import me.playajames.tmcs.handler.Permissions;
 
-public class TMCS implements CommandExecutor {
+public class TMCSCommand implements CommandExecutor {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

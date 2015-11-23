@@ -12,7 +12,7 @@ import me.playajames.tmcs.Main;
 import me.playajames.tmcs.handler.Permissions;
 import me.playajames.tmcs.persistence.Players;
 
-public class Database implements CommandExecutor {
+public class DatabaseCommand implements CommandExecutor {
 
 	/*
 	 * 	Command Usage:
@@ -21,7 +21,7 @@ public class Database implements CommandExecutor {
 	 */
 	
 	private Main plugin;
-	public Database (Main plugin) {
+	public DatabaseCommand (Main plugin) {
         this.plugin = plugin;
     }
 	
@@ -41,7 +41,7 @@ public class Database implements CommandExecutor {
 				case "set":
 					if (player.hasPermission("tmcs.command.database.set")) {
 						if (args.length == 4) {
-							if (!databaseSet(player, args)) {
+							if (!databaseSetPlayer(player, args)) {
 								player.sendMessage(GlobalData.styleChatServer + ChatColor.RED + "Oops, something went wrong. For more info use /db help.");
 							}
 						} else {
@@ -54,7 +54,7 @@ public class Database implements CommandExecutor {
 				case "get":
 					if (player.hasPermission("tmcs.command.database.get")) {
 						if (args.length == 3) {
-							if (!databaseGet(player, args)) {
+							if (!databaseGetPlayer(player, args)) {
 								player.sendMessage(GlobalData.styleChatServer + ChatColor.RED + "Oops, something went wrong. For more info use /db help.");
 							}
 						} else {
@@ -89,12 +89,12 @@ public class Database implements CommandExecutor {
 	}
 	
 	@SuppressWarnings("deprecation")
-	private boolean databaseSet(Player player, String[] args) {
+	private boolean databaseSetPlayer(Player player, String[] args) {
 		Player targetPlayer = plugin.getServer().getPlayer(args[1]);
 		String key = args[2];
 		String value = args[3];
 		if (new Players().set(targetPlayer.getUniqueId().toString(), key, value)) {
-			player.sendMessage("Database entry " + key + " has been set to " + value + " for " + targetPlayer.getDisplayName());
+			player.sendMessage(GlobalData.styleChatServer + "Database entry " + key + " has been set to " + value + " for " + targetPlayer.getDisplayName());
 			return true;
 		}else {
 			return false;
@@ -102,7 +102,7 @@ public class Database implements CommandExecutor {
 	}
 	
 	@SuppressWarnings("deprecation")
-	private boolean databaseGet(Player player, String[] args) {
+	private boolean databaseGetPlayer(Player player, String[] args) {
 		Player targetPlayer = plugin.getServer().getPlayer(args[1]);
 		String key = args[2];
 		Object returned = new Players().get(targetPlayer.getUniqueId().toString(), key);

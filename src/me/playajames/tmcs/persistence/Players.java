@@ -44,8 +44,8 @@ public class Players {
     private long timePlayed;
     private String data;
     
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int value) {
+        this.id = value;
     }
  
     public int getId() {

@@ -1,6 +1,6 @@
 name: TMCS
 main: me.playajames.tmcs.Main
-version: 0.3
+version: 0.4
 author: playajames
 database: true
 
@@ -11,3 +11,7 @@ commands:
     description: Database core control command.
   db:
     description: Alias of database command.
+  test:
+    description: Test command for development purposes.
+  money:
+    desctiption: Display's amount of money player has.

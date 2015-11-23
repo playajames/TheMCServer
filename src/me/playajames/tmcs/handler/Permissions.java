@@ -14,4 +14,10 @@ public class Permissions {
 		Bukkit.getLogger().warning("[PermissionsEx] User " + player.getDisplayName() + " tried to access chat command '" + cmd.getName() + Arrays.toString(args) + "', but dosen't have permission to do this.");
 		return;
 	}
+	
+	public void denyTask(Player player, String task, String data) {
+		player.sendMessage(ChatColor.RED + "Sorry, you don't have enough permissions.");
+		Bukkit.getLogger().warning("[PermissionsEx] User " + player.getDisplayName() + " tried to '" + task + data + "', but dosen't have permission to do this.");
+		return;
+	}
 }

@@ -20,6 +20,7 @@ public class PlayerJoin implements Listener {
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
+		GlobalData.onlinePlayers.add(player);
 		new Logger().playerJoin(player);
 		Date now = new Date();
 		Players playerClass = (Players) new Players().get(player.getUniqueId().toString(), null);
