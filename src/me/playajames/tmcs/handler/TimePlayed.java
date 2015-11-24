@@ -4,13 +4,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
+import me.playajames.tmcs.GlobalData;
 import me.playajames.tmcs.persistence.Players;
 
 public class TimePlayed {
 
-	public void calculate(Player player) {
+	public void calculatePlayer(OfflinePlayer player) {
 		try {
 			Players playerClass = (Players) new Players().get(player.getUniqueId().toString(), null);
 			String lastJoinString = playerClass.getLastJoinTimestamp();
@@ -26,8 +28,16 @@ public class TimePlayed {
 			Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().save(playerClass);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Failed to calculate time played for " + player.getDisplayName() + ".");
+			System.out.println("Failed to calculate time played for " + player.getName() + ".");
 			return;
+		}
+	}
+	
+	public void calculateAllPlayers() {
+		if (!GlobalData.onlinePlayers.isEmpty()) {
+			for (Player player : GlobalData.onlinePlayers) {
+				calculatePlayer(player);
+			}
 		}
 	}
 	

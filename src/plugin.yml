@@ -1,6 +1,6 @@
 name: TMCS
 main: me.playajames.tmcs.Main
-version: 0.4
+version: 0.5
 author: playajames
 database: true
 

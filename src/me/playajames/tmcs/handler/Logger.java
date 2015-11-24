@@ -2,6 +2,7 @@ package me.playajames.tmcs.handler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -57,7 +58,7 @@ public class Logger {
 		return false;
 	}
 	
-	public boolean moneyTransaction(Player player, HashMap<String,Object> map) {
+	public boolean moneyTransaction(Player player, Map<String,Object> map) {
 		return false;
 	}
 	

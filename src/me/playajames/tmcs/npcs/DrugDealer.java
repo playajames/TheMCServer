@@ -7,6 +7,7 @@ import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import me.playajames.tmcs.handler.Permissions;
 import me.playajames.tmcs.items.ItemWeedStress;
 import me.playajames.tmcs.items.ItemWeedStressSeed;
 
@@ -21,7 +22,11 @@ public class DrugDealer {
 	}
 	
 	public void openGui(Player player) {
-		player.openInventory(inventoryGui);
+		if (player.hasPermission("tmcs.npc.drugdealer")) {
+			player.openInventory(inventoryGui);
+		} else {
+			new Permissions().denyTask(player, "access npc", "Drug Dealer");
+		}
 	}
 	
 	public void onClick(InventoryClickEvent event) {

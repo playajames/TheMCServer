@@ -20,9 +20,9 @@ public class PlayerJoin implements Listener {
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
+		Date now = new Date();
 		GlobalData.onlinePlayers.add(player);
 		new Logger().playerJoin(player);
-		Date now = new Date();
 		Players playerClass = (Players) new Players().get(player.getUniqueId().toString(), null);
 		if (playerClass != null) {
 			player.sendMessage(GlobalData.styleChatServer + "Welcome back, " + player.getDisplayName() + ".");

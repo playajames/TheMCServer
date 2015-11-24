@@ -28,11 +28,8 @@ import me.playajames.tmcs.schedulers.PlantsScheduler;
 public class Main extends JavaPlugin {
 	
 	public void onDisable() {
-//		if (!GlobalData.onlinePlayers.isEmpty()) {
-//			for (Player player : GlobalData.onlinePlayers) {
-//				new TimePlayed().calculate(player);
-//			}
-//		}
+		//Needs to be fixed.
+		//new TimePlayed().calculateAllPlayers();
 		this.getLogger().info("Plugin has been disabled.");
 	}
 	

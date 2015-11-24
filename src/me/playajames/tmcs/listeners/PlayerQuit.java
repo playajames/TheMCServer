@@ -15,7 +15,7 @@ public class PlayerQuit implements Listener {
 	public void onQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 		new Logger().playerQuit(player);
-		new TimePlayed().calculate(player);
+		new TimePlayed().calculatePlayer(player);
 		GlobalData.onlinePlayers.remove(player);
 	}
 }

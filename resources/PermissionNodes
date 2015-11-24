@@ -1,11 +1,17 @@
 Permission Nodes
 
-Commands
-
-	TMCS:
-		
-
+Commands:
+	TMCS:	
 	Database:
 		-tmcs.command.database.help
 		-tmcs.command.database.set
 		-tmcs.command.database.get
+	Money:
+		-tmcs.command.money
+		-tmcs.command.money.lookup
+Tasks:
+	NPC:
+		Drug Dealer:
+			-tmcs.npc.drugdealer
+		Food Vendor:
+			-tmcs.npc.foodvendor

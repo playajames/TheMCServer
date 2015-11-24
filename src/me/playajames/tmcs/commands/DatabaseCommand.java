@@ -81,11 +81,11 @@ public class DatabaseCommand implements CommandExecutor {
 	}
 	
 	private void showHelp(Player player) {
-		player.sendMessage(ChatColor.GOLD + "***Database Command Help***");
-		player.sendMessage(ChatColor.GOLD + "Alais: database, db");
-		player.sendMessage(ChatColor.GOLD + "Usage:");
-		player.sendMessage(ChatColor.GOLD + " - /database set playername key value - Sets value of specified key.");
-		player.sendMessage(ChatColor.GOLD + " - /database get playername key - Returns value of specified key.");
+		player.sendMessage(ChatColor.YELLOW + "***Database Command Help***");
+		player.sendMessage(ChatColor.YELLOW + "Alais: database, db");
+		player.sendMessage(ChatColor.YELLOW + "Usage:");
+		player.sendMessage(ChatColor.YELLOW + " - /database set playername key value - Sets value of specified key.");
+		player.sendMessage(ChatColor.YELLOW + " - /database get playername key - Returns value of specified key.");
 	}
 	
 	@SuppressWarnings("deprecation")
