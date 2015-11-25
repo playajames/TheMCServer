@@ -61,12 +61,4 @@ public class PlayerData {
 			return false;
 		}
 	}
-	
-	public boolean storePlayer(Player player) {
-		return false;
-	}
-	
-	public boolean saveAll(Player player) {
-		return false;
-	}	
 }

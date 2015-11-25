@@ -17,8 +17,10 @@ import me.playajames.tmcs.listeners.EntityDeath;
 import me.playajames.tmcs.listeners.InventoryClick;
 import me.playajames.tmcs.listeners.PlayerBreakBlock;
 import me.playajames.tmcs.listeners.PlayerDeath;
+import me.playajames.tmcs.listeners.PlayerInteract;
 import me.playajames.tmcs.listeners.PlayerInteractEntity;
 import me.playajames.tmcs.listeners.PlayerJoin;
+import me.playajames.tmcs.listeners.PlayerKick;
 import me.playajames.tmcs.listeners.PlayerPlaceBlock;
 import me.playajames.tmcs.listeners.PlayerQuit;
 import me.playajames.tmcs.persistence.Plants;
@@ -27,9 +29,11 @@ import me.playajames.tmcs.schedulers.PlantsScheduler;
 
 public class Main extends JavaPlugin {
 	
+	public static Main getPlugin() { return JavaPlugin.getPlugin(Main.class); }
+	
 	public void onDisable() {
 		//Needs to be fixed.
-		//new TimePlayed().calculateAllPlayers();
+		new Players().kickAll();
 		this.getLogger().info("Plugin has been disabled.");
 	}
 	
@@ -46,12 +50,14 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new EntityDeath(), this);
 		getServer().getPluginManager().registerEvents(new BlockGrow(), this);
 		getServer().getPluginManager().registerEvents(new PlayerInteractEntity(), this);
+		getServer().getPluginManager().registerEvents(new PlayerInteract(), this);
+		getServer().getPluginManager().registerEvents(new PlayerKick(), this);
 		getServer().getPluginManager().registerEvents(new InventoryClick(), this);
 
 		// Register Commands
 		this.getCommand("tmcs").setExecutor(new TMCSCommand());
-		this.getCommand("database").setExecutor(new DatabaseCommand(this));
-		this.getCommand("db").setExecutor(new DatabaseCommand(this));
+		this.getCommand("database").setExecutor(new DatabaseCommand());
+		this.getCommand("db").setExecutor(new DatabaseCommand());
 		this.getCommand("test").setExecutor(new TestCommand());
 		this.getCommand("money").setExecutor(new MoneyCommand());
 		

@@ -3,7 +3,6 @@ package me.playajames.tmcs.handler;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
@@ -25,7 +24,7 @@ public class TimePlayed {
 			long result = diffSeconds + timePlayed;
 			playerClass.setTimePlayed(result);
 			playerClass.setLastQuitTimestamp(now.toString());
-			Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().save(playerClass);
+			new Players().save(playerClass);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Failed to calculate time played for " + player.getName() + ".");

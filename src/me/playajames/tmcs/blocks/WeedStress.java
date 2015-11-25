@@ -10,6 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -28,6 +29,11 @@ public final class WeedStress {
 	 *  Grow time:
 	 */
 	private double growRate = 0.5;
+	private int id = 9;
+	
+	public int getId() {
+		return this.id;
+	}
 	
 	public ItemStack getSeed() {
 		return new ItemWeedStressSeed().getItem();
@@ -229,6 +235,13 @@ public final class WeedStress {
 	}
 	
 	public boolean canUseBonemeal() {
+		return false;
+	}
+	
+	public boolean checkPlantedOn(Block block) {
+		if (new Plants().contains(block.getRelative(BlockFace.UP, 1).getLocation())) {
+			return true;
+		}
 		return false;
 	}
 }
