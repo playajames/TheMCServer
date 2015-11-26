@@ -26,8 +26,8 @@ public class ItemWeedStressSeed {
 		lore.add(ChatColor.YELLOW + "Type: Stress");
 		itemMeta.setLore(lore);
 		
-		itemMap.put("Buy", 9);
-		itemMap.put("Sell", 3);
+		itemMap.put("Buy", 11);
+		itemMap.put("Sell", 6);
 		
 		setItemMeta(itemMeta);
 		setItemMap(itemMeta.getDisplayName(), itemMap);

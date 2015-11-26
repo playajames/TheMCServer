@@ -27,7 +27,7 @@ public class ItemWeedStress {
 		itemMeta.setLore(lore);
 		
 		itemMap.put("Buy", 35);
-		itemMap.put("Sell", 18);
+		itemMap.put("Sell", 16);
 		
 		setItemMeta(itemMeta);
 		setItemMap(itemMeta.getDisplayName(), itemMap);
