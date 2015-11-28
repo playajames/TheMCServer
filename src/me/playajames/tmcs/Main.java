@@ -11,6 +11,7 @@ import me.playajames.tmcs.commands.DatabaseCommand;
 import me.playajames.tmcs.commands.MoneyCommand;
 import me.playajames.tmcs.commands.TMCSCommand;
 import me.playajames.tmcs.commands.TestCommand;
+import me.playajames.tmcs.commands.WarpCommand;
 import me.playajames.tmcs.items.CustomItems;
 import me.playajames.tmcs.listeners.BlockGrow;
 import me.playajames.tmcs.listeners.EntityDeath;
@@ -25,6 +26,7 @@ import me.playajames.tmcs.listeners.PlayerPlaceBlock;
 import me.playajames.tmcs.listeners.PlayerQuit;
 import me.playajames.tmcs.persistence.Plants;
 import me.playajames.tmcs.persistence.Players;
+import me.playajames.tmcs.persistence.Warps;
 import me.playajames.tmcs.schedulers.PlantsScheduler;
 
 public class Main extends JavaPlugin {
@@ -33,7 +35,7 @@ public class Main extends JavaPlugin {
 	
 	public void onDisable() {
 		//Needs to be fixed.
-		new Players().kickAll();
+		//	new Utilities().kickAllPlayers();
 		this.getLogger().info("Plugin has been disabled.");
 	}
 	
@@ -60,6 +62,8 @@ public class Main extends JavaPlugin {
 		this.getCommand("db").setExecutor(new DatabaseCommand());
 		this.getCommand("test").setExecutor(new TestCommand());
 		this.getCommand("money").setExecutor(new MoneyCommand());
+		this.getCommand("warp").setExecutor(new WarpCommand());
+		this.getCommand("warps").setExecutor(new WarpCommand());
 		
 		// Initiate Schedulers
 		new PlantsScheduler(this).init();
@@ -83,6 +87,7 @@ public class Main extends JavaPlugin {
         List<Class<?>> list = new ArrayList<Class<?>>();
         list.add(Players.class);
         list.add(Plants.class);
+        list.add(Warps.class);
         return list;
     }
 }

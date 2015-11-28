@@ -1,7 +1,10 @@
 Permission Nodes
 
 Commands:
-	TMCS:	
+	TMCS:
+		-tmcs.*
+	Test:
+		-tmcs.command.test
 	Database:
 		-tmcs.command.database.help
 		-tmcs.command.database.set
@@ -9,9 +12,19 @@ Commands:
 	Money:
 		-tmcs.command.money
 		-tmcs.command.money.lookup
+	Warp:
+		-tmcs.command.warp.create
+		-tmcs.command.warp.update
+		-tmcs.command.warp.list
+		-tmcs.command.warp.remove
+		-tmcs.command.warp.help
+		-tmcs.command.warp.<warp_name>
 Tasks:
 	NPC:
 		Drug Dealer:
 			-tmcs.npc.drugdealer
 		Food Vendor:
 			-tmcs.npc.foodvendor
+	Plants:
+		Weed Stress Seeds:
+			-tmcs.plant.weedseedstress

@@ -26,7 +26,7 @@ public class PlantsScheduler {
         	@Override
             public void run() {
                 //if (GlobalData.debug) plugin.getLogger().info("Running plant scheduler...");
-                List<Plants> list = Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().find(Plants.class).findList();
+                List<Plants> list = Main.getPlugin().getDatabase().find(Plants.class).findList();
                 for (Plants plantClass : list) {
                 	World world = plugin.getServer().getWorld(plantClass.getWorld());
                 	Location loc = new Location(world, plantClass.getLocX(), plantClass.getLocY(), plantClass.getLocZ());

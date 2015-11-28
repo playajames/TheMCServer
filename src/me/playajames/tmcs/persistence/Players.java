@@ -13,7 +13,6 @@ import com.avaje.ebean.validation.Length;
 import com.avaje.ebean.validation.NotEmpty;
 import com.avaje.ebean.validation.NotNull;
 
-import me.playajames.tmcs.GlobalData;
 import me.playajames.tmcs.Main;
 
 @Entity()
@@ -299,11 +298,5 @@ public class Players {
 	
 	public void save(Players playerClass) {
 		Main.getPlugin().getDatabase().save(playerClass);
-	}
-	
-	public void kickAll() {
-		for (Player player : GlobalData.onlinePlayers) {
-			player.kickPlayer(GlobalData.styleChatServer + "Don't worry, the server has been stopped. As a result all players have been kicked. Check our website for updates.");
-		}
 	}
 }

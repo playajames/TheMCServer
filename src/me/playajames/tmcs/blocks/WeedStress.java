@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -17,6 +16,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import me.playajames.tmcs.Main;
 import me.playajames.tmcs.handler.Permissions;
 import me.playajames.tmcs.handler.TimePlayed;
 import me.playajames.tmcs.items.ItemWeedStress;
@@ -60,10 +60,8 @@ public final class WeedStress {
 			event.setCancelled(true);
 			Plants plantClass = (Plants) new Plants().get(block.getLocation(), null);
 			harvest(block, plantClass);
-			//if (GlobalData.debug) event.getPlayer().sendMessage("[Debug] Weed plant broke.");
 			return true;
 		}
-		//if (GlobalData.debug) event.getPlayer().sendMessage("[Debug] Crop plant not found in database. Crop could be from vanilla MC seeds.");
 		return false;
 	}
 	
@@ -76,7 +74,7 @@ public final class WeedStress {
 			}
 		}
 		try {
-			Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().delete(plantClass);
+			Main.getPlugin().getDatabase().delete(plantClass);
 		} catch (Exception exception){
 			System.out.println("There was a problem deleting plant [id=" + plantClass.getId() + "].");
 			exception.printStackTrace();
@@ -99,7 +97,7 @@ public final class WeedStress {
 			plantClass.setNutrients(0);
 			plantClass.setPlantedTime(now.toString());
 			plantClass.setLastCheckTime(now.toString());
-			Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().save(plantClass);
+			Main.getPlugin().getDatabase().save(plantClass);
 			block.setType(Material.CROPS);
 			//if (GlobalData.debug) player.sendMessage("[Debug] Weed plant placed.");
 		} else {
@@ -206,18 +204,16 @@ public final class WeedStress {
 	
 	@SuppressWarnings("deprecation")
 	public void grow(Block block, Plants plantClass) {
-		//int waterLevel = plantClass.getWaterLevel();
-		//int health = plantClass.getHealth();
-		//int nutrients = plantClass.getNutrients();
 		int stage = plantClass.getStage();
 		double growRate = plantClass.getGrowRate();
 		int light = block.getLightLevel();
 		String lastCheckTime = plantClass.getLastCheckTime();
+		
 		Date now = new Date();
-		//Date plantedTime = new TimePlayed().formatDate(plantClass.getPlantedTime());
 		Date lastCheckTimeDate = new TimePlayed().formatDate(lastCheckTime);
 		long diff = now.getTime() - lastCheckTimeDate.getTime();
 		long diffSeconds = diff / 1000;
+		
 		if (block.getType().equals(Material.CROPS)) {
 			if (diffSeconds >= 60 * growRate) {
 				if (light >= 9) {
@@ -225,7 +221,7 @@ public final class WeedStress {
 					block.setData(Byte.parseByte(String.valueOf(stage)));
 					plantClass.setStage(stage);
 					plantClass.setLastCheckTime(now.toString());
-					Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().save(plantClass);
+					Main.getPlugin().getDatabase().save(plantClass);
 				}
 			}
 		} else {

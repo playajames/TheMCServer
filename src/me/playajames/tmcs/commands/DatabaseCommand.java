@@ -80,8 +80,8 @@ public class DatabaseCommand implements CommandExecutor {
 		player.sendMessage(ChatColor.YELLOW + "***Database Command Help***");
 		player.sendMessage(ChatColor.YELLOW + "Alais: database, db");
 		player.sendMessage(ChatColor.YELLOW + "Usage:");
-		player.sendMessage(ChatColor.YELLOW + " - /database set playername key value - Sets value of specified key.");
-		player.sendMessage(ChatColor.YELLOW + " - /database get playername key - Returns value of specified key.");
+		player.sendMessage(ChatColor.YELLOW + " - /database set <playername> <key> <value> - Sets value of specified key.");
+		player.sendMessage(ChatColor.YELLOW + " - /database get <playername> <key> - Returns value of specified key.");
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -101,7 +101,7 @@ public class DatabaseCommand implements CommandExecutor {
 	private boolean databaseGetPlayer(Player player, String[] args) {
 		OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(args[1]);
 		String key = args[2];
-		Object returned = new Players().get(targetPlayer.getUniqueId().toString(), key);
+		Object returned = new Players().get(targetPlayer.getUniqueId().toString(), null);
 		if (!returned.equals(false)) {
 			if (returned instanceof Integer) {
 				returned = String.valueOf(returned);

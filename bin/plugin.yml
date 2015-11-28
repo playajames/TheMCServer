@@ -15,3 +15,7 @@ commands:
     description: Test command for development purposes.
   money:
     desctiption: Display's amount of money player has.
+  warp:
+    desctiption: Warp control command.
+  warps:
+    desctiption: Warp control command.

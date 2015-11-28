@@ -5,6 +5,7 @@ import java.util.Date;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import me.playajames.tmcs.Main;
 import me.playajames.tmcs.persistence.Players;
 
 public class PlayerData {
@@ -53,7 +54,7 @@ public class PlayerData {
 			playerClass.setLastQuitTimestamp(null);
 			playerClass.setTimePlayed(0);
 			playerClass.setData(null);
-			Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().save(playerClass);
+			Main.getPlugin().getDatabase().save(playerClass);
 			Bukkit.getServer().getLogger().info("Data created for " + player.getDisplayName() + " successfully.");
 			return true;
 		} catch (Exception e) {
