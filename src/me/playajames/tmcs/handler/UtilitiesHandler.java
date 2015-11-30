@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 
 import me.playajames.tmcs.GlobalData;
 
-public class Utilities {
+public class UtilitiesHandler {
 
 	public void serializeLoc(Location loc) {
 		

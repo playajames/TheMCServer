@@ -1,6 +1,6 @@
 package me.playajames.tmcs.persistence;
-
-public class Logger {
+@SuppressWarnings("unused")
+public class LoggerTable {
 	
 	private int id;
 	private String uuid;

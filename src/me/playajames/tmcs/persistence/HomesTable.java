@@ -1,6 +1,7 @@
 package me.playajames.tmcs.persistence;
 
-public class Homes {
+@SuppressWarnings("unused")
+public class HomesTable {
 
 	private int id;
 	private String playerUuid;

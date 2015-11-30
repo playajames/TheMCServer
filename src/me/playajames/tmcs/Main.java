@@ -7,13 +7,16 @@ import javax.persistence.PersistenceException;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import me.playajames.tmcs.commands.ClanCommand;
 import me.playajames.tmcs.commands.DatabaseCommand;
 import me.playajames.tmcs.commands.MoneyCommand;
+import me.playajames.tmcs.commands.SpawnCommand;
 import me.playajames.tmcs.commands.TMCSCommand;
 import me.playajames.tmcs.commands.TestCommand;
 import me.playajames.tmcs.commands.WarpCommand;
 import me.playajames.tmcs.items.CustomItems;
 import me.playajames.tmcs.listeners.BlockGrow;
+import me.playajames.tmcs.listeners.EntityDamageByEntity;
 import me.playajames.tmcs.listeners.EntityDeath;
 import me.playajames.tmcs.listeners.InventoryClick;
 import me.playajames.tmcs.listeners.PlayerBreakBlock;
@@ -24,10 +27,12 @@ import me.playajames.tmcs.listeners.PlayerJoin;
 import me.playajames.tmcs.listeners.PlayerKick;
 import me.playajames.tmcs.listeners.PlayerPlaceBlock;
 import me.playajames.tmcs.listeners.PlayerQuit;
-import me.playajames.tmcs.persistence.Plants;
-import me.playajames.tmcs.persistence.Players;
-import me.playajames.tmcs.persistence.Warps;
-import me.playajames.tmcs.schedulers.PlantsScheduler;
+import me.playajames.tmcs.persistence.ClanMembersTable;
+import me.playajames.tmcs.persistence.ClansTable;
+import me.playajames.tmcs.persistence.PlantsTable;
+import me.playajames.tmcs.persistence.PlayersTable;
+import me.playajames.tmcs.persistence.WarpsTable;
+import me.playajames.tmcs.schedulers.CoreScheduler;
 
 public class Main extends JavaPlugin {
 	
@@ -55,6 +60,7 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new PlayerInteract(), this);
 		getServer().getPluginManager().registerEvents(new PlayerKick(), this);
 		getServer().getPluginManager().registerEvents(new InventoryClick(), this);
+		getServer().getPluginManager().registerEvents(new EntityDamageByEntity(), this);
 
 		// Register Commands
 		this.getCommand("tmcs").setExecutor(new TMCSCommand());
@@ -64,9 +70,12 @@ public class Main extends JavaPlugin {
 		this.getCommand("money").setExecutor(new MoneyCommand());
 		this.getCommand("warp").setExecutor(new WarpCommand());
 		this.getCommand("warps").setExecutor(new WarpCommand());
+		this.getCommand("spawn").setExecutor(new SpawnCommand());
+		this.getCommand("clan").setExecutor(new ClanCommand());
+		this.getCommand("clans").setExecutor(new ClanCommand());
 		
 		// Initiate Schedulers
-		new PlantsScheduler(this).init();
+		new CoreScheduler(this).init();
 		
 		// Register Custom Items
 		new CustomItems().registerItems();
@@ -74,8 +83,11 @@ public class Main extends JavaPlugin {
 	
 	private void setupDatabase() {
 		try {
-			getDatabase().find(Players.class).findRowCount();
-			getDatabase().find(Plants.class).findRowCount();
+			getDatabase().find(PlayersTable.class).findRowCount();
+			getDatabase().find(PlantsTable.class).findRowCount();
+			getDatabase().find(WarpsTable.class).findRowCount();
+			getDatabase().find(ClansTable.class).findRowCount();
+			getDatabase().find(ClanMembersTable.class).findRowCount();
 		} catch(PersistenceException ex) {
 			System.out.println("Installing database for " + getDescription().getName() + " due to first time usage.");
 			installDDL();
@@ -85,9 +97,11 @@ public class Main extends JavaPlugin {
 	@Override
     public List<Class<?>> getDatabaseClasses() {
         List<Class<?>> list = new ArrayList<Class<?>>();
-        list.add(Players.class);
-        list.add(Plants.class);
-        list.add(Warps.class);
+        list.add(PlayersTable.class);
+        list.add(PlantsTable.class);
+        list.add(WarpsTable.class);
+        list.add(ClansTable.class);
+        list.add(ClanMembersTable.class);
         return list;
     }
 }

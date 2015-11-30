@@ -7,13 +7,13 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import me.playajames.tmcs.GlobalData;
-import me.playajames.tmcs.persistence.Players;
+import me.playajames.tmcs.persistence.PlayersTable;
 
-public class TimePlayed {
+public class TimePlayedHandler {
 
 	public void calculatePlayer(OfflinePlayer player) {
 		try {
-			Players playerClass = (Players) new Players().get(player.getUniqueId().toString(), null);
+			PlayersTable playerClass = (PlayersTable) new PlayersTable().get(player.getUniqueId().toString(), null);
 			String lastJoinString = playerClass.getLastJoinTimestamp();
 			Long timePlayed = playerClass.getTimePlayed();
 			Date now = new Date();
@@ -24,7 +24,7 @@ public class TimePlayed {
 			long result = diffSeconds + timePlayed;
 			playerClass.setTimePlayed(result);
 			playerClass.setLastQuitTimestamp(now.toString());
-			new Players().save(playerClass);
+			new PlayersTable().save(playerClass);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Failed to calculate time played for " + player.getName() + ".");

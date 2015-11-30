@@ -17,11 +17,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import me.playajames.tmcs.Main;
-import me.playajames.tmcs.handler.Permissions;
-import me.playajames.tmcs.handler.TimePlayed;
+import me.playajames.tmcs.handler.PermissionsHandler;
+import me.playajames.tmcs.handler.TimePlayedHandler;
 import me.playajames.tmcs.items.ItemWeedStress;
 import me.playajames.tmcs.items.ItemWeedStressSeed;
-import me.playajames.tmcs.persistence.Plants;
+import me.playajames.tmcs.persistence.PlantsTable;
 
 public final class WeedStress {
 	
@@ -56,16 +56,16 @@ public final class WeedStress {
 	
 	public boolean harvestCheck(BlockBreakEvent event) {
 		Block block = event.getBlock();
-		if (new Plants().contains(block.getLocation())) {
+		if (new PlantsTable().contains(block.getLocation())) {
 			event.setCancelled(true);
-			Plants plantClass = (Plants) new Plants().get(block.getLocation(), null);
+			PlantsTable plantClass = (PlantsTable) new PlantsTable().get(block.getLocation(), null);
 			harvest(block, plantClass);
 			return true;
 		}
 		return false;
 	}
 	
-	public void harvest(Block block, Plants plantClass) {
+	public void harvest(Block block, PlantsTable plantClass) {
 		block.setType(Material.AIR);
 		List<ItemStack> drops = getDrops(plantClass);
 		if (drops.size() >= 1) {
@@ -84,7 +84,7 @@ public final class WeedStress {
 	public void plant(Player player, Block block) {
 		Date now = new Date();
 		if (player.hasPermission("tmcs.plant.weedseedstress")) {
-			Plants plantClass = new Plants();
+			PlantsTable plantClass = new PlantsTable();
 			plantClass.setWorld(block.getWorld().getName());
 			plantClass.setLocX(block.getX());
 			plantClass.setLocY(block.getY());
@@ -101,11 +101,11 @@ public final class WeedStress {
 			block.setType(Material.CROPS);
 			//if (GlobalData.debug) player.sendMessage("[Debug] Weed plant placed.");
 		} else {
-			new Permissions().denyTask(player, "plant", "[Item:WeedSeedStress]");
+			new PermissionsHandler().denyTask(player, "plant", "[Item:WeedSeedStress]");
 		}
 	}
 	
-	public boolean canGrow(Block block, Plants plantClass) {
+	public boolean canGrow(Block block, PlantsTable plantClass) {
 		if (plantClass.getStage() < 7) {
 			//if (GlobalData.debug) System.out.println("Plant can grow.");
 			grow(block, plantClass);
@@ -114,12 +114,12 @@ public final class WeedStress {
 		return false;
 	}
 	
-	public boolean getGrowthChance(Block block, World world, Plants plantClass) {
+	public boolean getGrowthChance(Block block, World world, PlantsTable plantClass) {
 		//
 		return false;
 	}
 	
-	public List<ItemStack> getDrops(Plants plantClass) {
+	public List<ItemStack> getDrops(PlantsTable plantClass) {
 		List<ItemStack> drops = new ArrayList<ItemStack>();
 		int random = new Random().nextInt(100) + 1;
 		ItemStack itemSeed = new ItemWeedStressSeed().getItem();
@@ -203,14 +203,14 @@ public final class WeedStress {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void grow(Block block, Plants plantClass) {
+	public void grow(Block block, PlantsTable plantClass) {
 		int stage = plantClass.getStage();
 		double growRate = plantClass.getGrowRate();
 		int light = block.getLightLevel();
 		String lastCheckTime = plantClass.getLastCheckTime();
 		
 		Date now = new Date();
-		Date lastCheckTimeDate = new TimePlayed().formatDate(lastCheckTime);
+		Date lastCheckTimeDate = new TimePlayedHandler().formatDate(lastCheckTime);
 		long diff = now.getTime() - lastCheckTimeDate.getTime();
 		long diffSeconds = diff / 1000;
 		
@@ -235,7 +235,7 @@ public final class WeedStress {
 	}
 	
 	public boolean checkPlantedOn(Block block) {
-		if (new Plants().contains(block.getRelative(BlockFace.UP, 1).getLocation())) {
+		if (new PlantsTable().contains(block.getRelative(BlockFace.UP, 1).getLocation())) {
 			return true;
 		}
 		return false;

@@ -8,7 +8,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import me.playajames.tmcs.GlobalData;
-import me.playajames.tmcs.handler.Permissions;
+import me.playajames.tmcs.handler.PermissionsHandler;
 
 public class TMCSCommand implements CommandExecutor {
 	
@@ -21,7 +21,7 @@ public class TMCSCommand implements CommandExecutor {
 					if (player.hasPermission("tmcs.debug")) {
 						player.sendMessage(GlobalData.styleChatServer + "Theres nothing here.");
 					} else {
-						new Permissions().denyCommand(player, cmd, args);
+						new PermissionsHandler().denyCommand(player, cmd, args);
 					}
 				} else {
 					player.sendMessage(GlobalData.styleChatServer + "I'm not sure what to do, use /tmcs help for more info.");

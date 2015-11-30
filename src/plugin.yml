@@ -19,3 +19,9 @@ commands:
     desctiption: Warp control command.
   warps:
     desctiption: Warp control command.
+  spawn:
+    desctiption: Teleports player to spawn location.
+  clan:
+    desctiption: Clan control command.
+  clans:
+    desctiption: Clan control command.

@@ -19,6 +19,22 @@ Commands:
 		-tmcs.command.warp.remove
 		-tmcs.command.warp.help
 		-tmcs.command.warp.<warp_name>
+	Spawn:
+		-tmcs.command.spawn
+	Clan:
+		-tmcs.command.clan.create
+		-tmcs.command.clan.delete
+		-tmcs.command.clan.invite
+		-tmcs.command.clan.list
+		-tmcs.command.clan.lookup
+		-tmcs.command.clan.join
+		-tmcs.command.clan.leave
+		-tmcs.command.clan kick
+		-tmcs.command.clan.setpermission
+		-tmcs.command.clan.prefix
+		-tmcs.command.clan.sethome
+		-tmcs.command.clan.home
+		-tmcs.command.clan.help
 Tasks:
 	NPC:
 		Drug Dealer:

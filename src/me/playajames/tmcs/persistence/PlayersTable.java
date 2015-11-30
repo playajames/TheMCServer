@@ -17,7 +17,7 @@ import me.playajames.tmcs.Main;
 
 @Entity()
 @Table(name = "players")
-public class Players {
+public class PlayersTable {
 	
 	
     @Id
@@ -33,7 +33,6 @@ public class Players {
     private String address;
     private int infractions;
     private int money;
-    private String license;
     private int kills;
     private int deaths;
     private int monsterKills;
@@ -102,14 +101,6 @@ public class Players {
     
     public void setMoney(int value) {
     	this.money = value;
-    }
-    
-    public String getLicense() {
-    	return license;
-    }
-    
-    public void setLicense(String value) {
-    	this.license = value;
     }
     
     public int getKills() {
@@ -185,7 +176,7 @@ public class Players {
     }
     
     public boolean set(String uuid, String key, String value) {
-    	Players playerClass = Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().find(this.getClass()).where().ieq("uuid", uuid).findUnique();
+    	PlayersTable playerClass = Main.getPlugin().getDatabase().find(this.getClass()).where().ieq("uuid", uuid).findUnique();
     	if (key == null) {
 			return false;
 		} else {
@@ -205,9 +196,6 @@ public class Players {
 					break;
 				case "money":
 					playerClass.setMoney(Integer.parseInt(value));
-					break;
-				case "license":
-					playerClass.setLicense(value);
 					break;
 				case "kills":
 					playerClass.setKills(Integer.parseInt(value));
@@ -246,7 +234,7 @@ public class Players {
     }
     
 	public Object get(String uuid, String key) {
-    	Players playerClass = Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().find(this.getClass()).where().ieq("uuid", uuid).findUnique();
+    	PlayersTable playerClass = Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().find(this.getClass()).where().ieq("uuid", uuid).findUnique();
     	if (playerClass == null) {
 			return null;
 		} else if (key == null) {
@@ -268,8 +256,6 @@ public class Players {
 					return (int) playerClass.getInfractions();
 				case "money":
 					return (int) playerClass.getMoney();
-				case "license":
-					return (String) playerClass.getLicense();
 				case "kills":
 					return (int) playerClass.getKills();
 				case "deaths":
@@ -296,7 +282,7 @@ public class Players {
 		}
 	}
 	
-	public void save(Players playerClass) {
+	public void save(PlayersTable playerClass) {
 		Main.getPlugin().getDatabase().save(playerClass);
 	}
 }

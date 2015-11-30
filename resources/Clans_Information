@@ -1,0 +1,22 @@
+Clan Permissions
+
+i = Invite
+p = Set Prefix
+k = Kick Member
+h = Set Home
+d = Delete Clan
+
+Clan Command Usage
+
+/clan create <clan_name> <prefix> <inviteOnly>
+/clan delete||remove <clan_name>
+/clan invite <playername>
+/clan list
+/clan lookup <clan_name>
+/clan join <clan_name>
+/clan leave
+/clan kick <playername>
+/clan setpermission||setpermissions <playername> <permissions>
+/clan prefix <prefix>
+/clan sethome
+/clan help

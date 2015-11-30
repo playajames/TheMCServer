@@ -10,8 +10,8 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import me.playajames.tmcs.GlobalData;
-import me.playajames.tmcs.handler.Permissions;
-import me.playajames.tmcs.persistence.Players;
+import me.playajames.tmcs.handler.PermissionsHandler;
+import me.playajames.tmcs.persistence.PlayersTable;
 
 public class DatabaseCommand implements CommandExecutor {
 
@@ -31,7 +31,7 @@ public class DatabaseCommand implements CommandExecutor {
 					if (player.hasPermission("tmcs.command.database.help")) {
 						showHelp(player);
 					} else {
-						new Permissions().denyCommand(player, cmd, args);
+						new PermissionsHandler().denyCommand(player, cmd, args);
 					}
 					break;
 				case "set":
@@ -44,7 +44,7 @@ public class DatabaseCommand implements CommandExecutor {
 							player.sendMessage(GlobalData.styleChatServer + ChatColor.RED + "Check arguments. Use /database help for more info.");
 						}
 					} else {
-						new Permissions().denyCommand(player, cmd, args);
+						new PermissionsHandler().denyCommand(player, cmd, args);
 					}
 					break;
 				case "get":
@@ -57,7 +57,7 @@ public class DatabaseCommand implements CommandExecutor {
 							player.sendMessage(GlobalData.styleChatServer + ChatColor.RED + "Check arguments. Use /database help for more info.");
 						}
 					} else {
-						new Permissions().denyCommand(player, cmd, args);
+						new PermissionsHandler().denyCommand(player, cmd, args);
 					}
 					break;
 				default:
@@ -89,7 +89,7 @@ public class DatabaseCommand implements CommandExecutor {
 		OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(args[1]);
 		String key = args[2];
 		String value = args[3];
-		if (new Players().set(targetPlayer.getUniqueId().toString(), key, value)) {
+		if (new PlayersTable().set(targetPlayer.getUniqueId().toString(), key, value)) {
 			player.sendMessage(GlobalData.styleChatServer + "Database entry " + key + " has been set to " + value + " for " + targetPlayer.getName());
 			return true;
 		}else {
@@ -101,7 +101,7 @@ public class DatabaseCommand implements CommandExecutor {
 	private boolean databaseGetPlayer(Player player, String[] args) {
 		OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(args[1]);
 		String key = args[2];
-		Object returned = new Players().get(targetPlayer.getUniqueId().toString(), null);
+		Object returned = new PlayersTable().get(targetPlayer.getUniqueId().toString(), null);
 		if (!returned.equals(false)) {
 			if (returned instanceof Integer) {
 				returned = String.valueOf(returned);

@@ -10,9 +10,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import me.playajames.tmcs.GlobalData;
-import me.playajames.tmcs.handler.Logger;
-import me.playajames.tmcs.handler.PlayerData;
-import me.playajames.tmcs.persistence.Players;
+import me.playajames.tmcs.handler.LoggerHandler;
+import me.playajames.tmcs.handler.PlayerDataHandler;
+import me.playajames.tmcs.persistence.PlayersTable;
 
 public class PlayerJoin implements Listener {
 
@@ -22,14 +22,14 @@ public class PlayerJoin implements Listener {
 		Player player = event.getPlayer();
 		Date now = new Date();
 		GlobalData.onlinePlayers.add(player);
-		new Logger().playerJoin(player);
-		Players playerClass = (Players) new Players().get(player.getUniqueId().toString(), null);
+		new LoggerHandler().playerJoin(player);
+		PlayersTable playerClass = (PlayersTable) new PlayersTable().get(player.getUniqueId().toString(), null);
 		if (playerClass != null) {
 			player.sendMessage(GlobalData.styleChatServer + "Welcome back, " + player.getDisplayName() + ".");
 			playerClass.setLastJoinTimestamp(now.toString());
 			Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().save(playerClass);
 		} else {
-			if (new PlayerData().create(player)) {
+			if (new PlayerDataHandler().create(player)) {
 				player.sendMessage(GlobalData.styleChatServer + "Welcome to the server, " + player.getDisplayName() + "!");
 			} else {
 				player.kickPlayer(GlobalData.styleChatServer + ChatColor.RED + "There was a problem creating your character, please contact a server administrator.");

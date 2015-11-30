@@ -9,8 +9,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.playajames.tmcs.GlobalData;
-import me.playajames.tmcs.handler.Permissions;
-import me.playajames.tmcs.persistence.Players;
+import me.playajames.tmcs.handler.PermissionsHandler;
+import me.playajames.tmcs.persistence.PlayersTable;
 
 public class MoneyCommand implements CommandExecutor {
 
@@ -23,7 +23,7 @@ public class MoneyCommand implements CommandExecutor {
 					int money = getMoney(player);
 					player.sendMessage(ChatColor.GREEN + "Money: " + ChatColor.GRAY + money);
 				} else {
-					new Permissions().denyCommand(player, cmd, args);
+					new PermissionsHandler().denyCommand(player, cmd, args);
 				}
 			} 
 			else if (args.length == 1) {
@@ -45,7 +45,7 @@ public class MoneyCommand implements CommandExecutor {
 						player.sendMessage(GlobalData.styleChatServer + "Couldn't find specified player.");
 					}
 				} else {
-					new Permissions().denyCommand(player, cmd, args);
+					new PermissionsHandler().denyCommand(player, cmd, args);
 				}
 			} else {
 				player.sendMessage(GlobalData.styleChatServer + "Invalid argument. Use /money help for more info.");
@@ -57,7 +57,7 @@ public class MoneyCommand implements CommandExecutor {
 
 	private int getMoney(OfflinePlayer player) {
 		try {
-			int money = (int) new Players().get(player.getUniqueId().toString(), "money");
+			int money = (int) new PlayersTable().get(player.getUniqueId().toString(), "money");
 			System.out.println(money);
 			return money;
 		} catch(NullPointerException exception) {
@@ -66,7 +66,7 @@ public class MoneyCommand implements CommandExecutor {
 	}
 	
 	private int getMoney(Player player) {
-		return (int) new Players().get(player.getUniqueId().toString(), "money");
+		return (int) new PlayersTable().get(player.getUniqueId().toString(), "money");
 	}
 	
 	@SuppressWarnings("deprecation")

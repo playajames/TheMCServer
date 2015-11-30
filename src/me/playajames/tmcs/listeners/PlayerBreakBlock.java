@@ -8,7 +8,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 
 import me.playajames.tmcs.GlobalData;
 import me.playajames.tmcs.blocks.WeedStress;
-import me.playajames.tmcs.handler.Logger;
+import me.playajames.tmcs.handler.LoggerHandler;
 
 public class PlayerBreakBlock implements Listener{
 
@@ -19,7 +19,7 @@ public class PlayerBreakBlock implements Listener{
 		if (event.getPlayer() instanceof Player) {
 			
 			Player player = event.getPlayer();
-			new Logger().blockBreak(player, event.getBlock());
+			new LoggerHandler().blockBreak(player, event.getBlock());
 			
 			if (event.getBlock().getType().equals(Material.CROPS)) new WeedStress().harvestCheck(event);
 			if (new WeedStress().checkPlantedOn(event.getBlock())) {

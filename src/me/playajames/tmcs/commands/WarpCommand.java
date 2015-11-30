@@ -13,8 +13,8 @@ import org.bukkit.entity.Player;
 
 import me.playajames.tmcs.GlobalData;
 import me.playajames.tmcs.Main;
-import me.playajames.tmcs.handler.Permissions;
-import me.playajames.tmcs.persistence.Warps;
+import me.playajames.tmcs.handler.PermissionsHandler;
+import me.playajames.tmcs.persistence.WarpsTable;
 
 public class WarpCommand implements CommandExecutor {
 
@@ -24,42 +24,50 @@ public class WarpCommand implements CommandExecutor {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
 			
-			if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("delete") && args.length == 2) {
+			
+			if (args.length == 0) {
+				player.sendMessage(GlobalData.styleChatServer + "Invalid argument. Use /warp help for more info.");
+				return false;
+			} else if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("delete") && args.length == 2) {
 				if (player.hasPermission("tmcs.command.warp.remove")) {
 					removeWarp(player, args[1]);
 					return true;
 				} else {
-					new Permissions().denyCommand(player, cmd, args);
+					new PermissionsHandler().denyCommand(player, cmd, args);
 				}
 			} else if (args[0].equalsIgnoreCase("create") && args.length == 2) {
 				if (player.hasPermission("tmcs.command.warp.create")) {
 					createWarp(player, args[1]);
 					return true;
 				} else {
-					new Permissions().denyCommand(player, cmd, args);
+					new PermissionsHandler().denyCommand(player, cmd, args);
 				}
 			} else if (args[0].equalsIgnoreCase("set") || args[0].equalsIgnoreCase("update") && args.length == 2) {
 				if (player.hasPermission("tmcs.command.warp.update")) {
 					updateWarp(player, args[1]);
 					return true;
 				} else {
-					new Permissions().denyCommand(player, cmd, args);
+					new PermissionsHandler().denyCommand(player, cmd, args);
 				}
 			} else if (args[0].equalsIgnoreCase("list") && args.length == 1) {
 				if (player.hasPermission("tmcs.command.warp.list")) {
 					listWarps(player);
 					return true;
 				} else {
-					new Permissions().denyCommand(player, cmd, args);
+					new PermissionsHandler().denyCommand(player, cmd, args);
 				}
 			} else if (args.length == 1 && !args[0].equalsIgnoreCase("help")) {
-				warp(player, args[0]);
+				if (player.hasPermission("tmcs.command.warp." + args[0])) {
+					warp(player, args[0]);
+				} else {
+					new PermissionsHandler().denyCommand(player, cmd, args);
+				}
 			} else if (args[0].equalsIgnoreCase("help")) {
 				if (player.hasPermission("tmcs.command.warp.help")) {
 					showHelp(player);
 					return true;
 				} else {
-					new Permissions().denyCommand(player, cmd, args);
+					new PermissionsHandler().denyCommand(player, cmd, args);
 				}
 			} else {
 				player.sendMessage(GlobalData.styleChatServer + "Invalid argument. Use /warp help for more info.");
@@ -79,21 +87,21 @@ public class WarpCommand implements CommandExecutor {
 	}
 	
 	public void listWarps(Player player) {
-		List<? extends Warps> warpsList = new Warps().get();
+		List<? extends WarpsTable> warpsList = new WarpsTable().get();
 		int i = 1;
 		player.sendMessage(ChatColor.YELLOW + "***Warp's List***");
-		for (Warps warpClass : warpsList) {
-			player.sendMessage(GlobalData.styleChatServer + i + ". " + warpClass.getName());
+		for (WarpsTable warpClass : warpsList) {
+			player.sendMessage(ChatColor.YELLOW + "" + i + ". " + warpClass.getName());
 			i++;
 		}
 	}
 	
 	public void createWarp(Player player, String name) {
 		Date now = new Date();
-		Warps warpClass = new Warps().get(name);
+		WarpsTable warpClass = new WarpsTable().get(name);
 		if (warpClass == null) {
 			Location loc = player.getLocation();
-			warpClass = new Warps();
+			warpClass = new WarpsTable();
 			warpClass.setName(name);
 			warpClass.setWorld(loc.getWorld().getName());
 			warpClass.setLocX(loc.getX());
@@ -111,7 +119,7 @@ public class WarpCommand implements CommandExecutor {
 	
 	public void removeWarp(Player player, String name) {
 		//Warps warpClass = new Warps().get(name);
-		Warps warpClass = Main.getPlugin().getDatabase().find(Warps.class).where().ieq("name", name).findUnique();
+		WarpsTable warpClass = Main.getPlugin().getDatabase().find(WarpsTable.class).where().ieq("name", name).findUnique();
 		if (warpClass != null) {
 			try {
 				Main.getPlugin().getDatabase().delete(warpClass);
@@ -128,7 +136,7 @@ public class WarpCommand implements CommandExecutor {
 	}
 	
 	public void updateWarp(Player player, String name) {
-		Warps warpClass = new Warps().get(name);
+		WarpsTable warpClass = new WarpsTable().get(name);
 		if (warpClass != null) {
 			Location loc = player.getLocation();
 			warpClass.setWorld(loc.getWorld().getName());
@@ -145,7 +153,7 @@ public class WarpCommand implements CommandExecutor {
 	}
 
 	public void warp(Player player, String name) {
-		Warps warpClass = new Warps().get(name);
+		WarpsTable warpClass = new WarpsTable().get(name);
 		if (warpClass != null) {
 			World world = Main.getPlugin().getServer().getWorld(warpClass.getWorld());
 			double x = warpClass.getLocX();
@@ -155,9 +163,13 @@ public class WarpCommand implements CommandExecutor {
 			float yaw = warpClass.getYaw();
 			Location loc = new Location(world, x, y, z, yaw, pitch);
 			player.teleport(loc);
-			player.sendMessage(GlobalData.styleChatServer + "Warped to " + name + ".");
+			player.sendMessage(GlobalData.styleChatServer + "You have been teleported to " + name + ".");
 		} else {
 			player.sendMessage(GlobalData.styleChatServer + "Couldn't find any warp's named " + name + ".");
 		}
+	}
+	
+	public void warp(Player player, String name, long cooldown) {
+		//here
 	}
 }

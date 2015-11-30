@@ -10,14 +10,13 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 import com.avaje.ebean.validation.Length;
-import com.avaje.ebean.validation.NotEmpty;
 import com.avaje.ebean.validation.NotNull;
 
 import me.playajames.tmcs.Main;
 
 @Entity()
 @Table(name = "warps")
-public class Warps {
+public class WarpsTable {
 
 	@Id
 	private int id;
@@ -32,9 +31,9 @@ public class Warps {
 	private double locY;
 	@NotNull
 	private double locZ;
-	@NotEmpty
+	@NotNull
 	private float pitch;
-	@NotEmpty
+	@NotNull
 	private float yaw;
 	@NotNull
 	private String timestamp;
@@ -122,13 +121,13 @@ public class Warps {
 		return this.version;
 	}
 	
-	public Warps get(String name) {
-    	Warps warpClass = Main.getPlugin().getDatabase().find(this.getClass()).where().ieq("name", name).findUnique();
+	public WarpsTable get(String name) {
+    	WarpsTable warpClass = Main.getPlugin().getDatabase().find(this.getClass()).where().ieq("name", name).findUnique();
     	return warpClass;
 	}
 	
-	public List<? extends Warps> get() {
-    	List<? extends Warps> warpsList = Main.getPlugin().getDatabase().find(this.getClass()).findList();
+	public List<? extends WarpsTable> get() {
+    	List<? extends WarpsTable> warpsList = Main.getPlugin().getDatabase().find(this.getClass()).findList();
     	return warpsList;
 	}
 	

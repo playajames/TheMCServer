@@ -8,7 +8,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import me.playajames.tmcs.GlobalData;
-import me.playajames.tmcs.persistence.Players;
+import me.playajames.tmcs.persistence.PlayersTable;
 
 public class NPC {
 	
@@ -26,7 +26,7 @@ public class NPC {
 	}
 	
 	public void buy(Player player, ItemStack item, int amount) {
-		Players playerClass = (Players) new Players().get(player.getUniqueId().toString(), null);
+		PlayersTable playerClass = (PlayersTable) new PlayersTable().get(player.getUniqueId().toString(), null);
 		Inventory playerInventory = player.getInventory();
 		ItemStack itemClone = item.clone();
 		int money = playerClass.getMoney();
@@ -70,7 +70,7 @@ public class NPC {
 	}
 	
 	public void sell(Player player, ItemStack item, int amount) {
-		Players playerClass = (Players) new Players().get(player.getUniqueId().toString(), null);
+		PlayersTable playerClass = (PlayersTable) new PlayersTable().get(player.getUniqueId().toString(), null);
 		Inventory playerInventory = player.getInventory();
 		ItemStack itemClone = item.clone();
 		int money = playerClass.getMoney();

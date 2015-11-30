@@ -12,7 +12,7 @@ import com.avaje.ebean.validation.NotNull;
 
 @Entity()
 @Table(name = "Plants")
-public class Plants {
+public class PlantsTable {
 
 	@Id
     private int id;
@@ -152,7 +152,7 @@ public class Plants {
         this.lastCheckTime = value;
     }
     public boolean set(String uuid, String key, String value) {
-    	Plants plantsClass = Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().find(this.getClass()).where().ieq("id", String.valueOf(id)).findUnique();
+    	PlantsTable plantsClass = Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().find(this.getClass()).where().ieq("id", String.valueOf(id)).findUnique();
     	if (key == null) {
 			return false;
 		} else {
@@ -207,7 +207,7 @@ public class Plants {
     }
     
 	public Object get(Location loc, String key) {
-		Plants plantsClass;
+		PlantsTable plantsClass;
 		String x = String.valueOf(loc.getBlockX());
 		String y = String.valueOf(loc.getBlockY());
 		String z = String.valueOf(loc.getBlockZ());
@@ -254,7 +254,7 @@ public class Plants {
 	}
 	
 	public boolean contains(Location loc) {
-		Plants plantsClass;
+		PlantsTable plantsClass;
 		String x = String.valueOf(loc.getBlockX());
 		String y = String.valueOf(loc.getBlockY());
 		String z = String.valueOf(loc.getBlockZ());

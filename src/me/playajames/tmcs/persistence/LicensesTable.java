@@ -1,6 +1,6 @@
 package me.playajames.tmcs.persistence;
-
-public class Licenses {
+@SuppressWarnings("unused")
+public class LicensesTable {
 
 	private int id;
 	private String playerUuid;

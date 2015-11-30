@@ -10,7 +10,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import me.playajames.tmcs.handler.Permissions;
+import me.playajames.tmcs.handler.PermissionsHandler;
 
 public class FoodVendor {
 	public static Inventory inventoryGui = Bukkit.createInventory(null, 27, "Food Vendor");
@@ -43,7 +43,7 @@ public class FoodVendor {
 		if (player.hasPermission("tmcs.npc.foodvendor")) {
 			player.openInventory(inventoryGui);
 		} else {
-			new Permissions().denyTask(player, "access npc", "Food Vendor");
+			new PermissionsHandler().denyTask(player, "access npc", "Food Vendor");
 		}
 	}
 	

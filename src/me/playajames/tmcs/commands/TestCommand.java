@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 import me.playajames.tmcs.GlobalData;
 import me.playajames.tmcs.blocks.WeedStress;
-import me.playajames.tmcs.handler.Permissions;
+import me.playajames.tmcs.handler.PermissionsHandler;
 
 public class TestCommand implements CommandExecutor {
 	@Override
@@ -18,7 +18,7 @@ public class TestCommand implements CommandExecutor {
 				player.getInventory().addItem(new WeedStress().getSeed());
 				player.sendMessage(GlobalData.styleChatServer + "Test command completed.");
 			} else {
-				new Permissions().denyCommand(player, cmd, args);
+				new PermissionsHandler().denyCommand(player, cmd, args);
 			}
 		}
 		return false;

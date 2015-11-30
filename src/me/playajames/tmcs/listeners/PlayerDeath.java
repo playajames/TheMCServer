@@ -4,12 +4,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
-import me.playajames.tmcs.handler.Logger;
+import me.playajames.tmcs.handler.LoggerHandler;
 
 public class PlayerDeath implements Listener {
 	
 	@EventHandler
 	public void onDeath(PlayerDeathEvent event) {
-		new Logger().playerDeath(event.getEntity().getPlayer(), event.getEntity().getKiller());
+		new LoggerHandler().playerDeath(event.getEntity().getPlayer(), event.getEntity().getKiller());
 	}
 }

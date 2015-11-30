@@ -6,9 +6,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import me.playajames.tmcs.Main;
-import me.playajames.tmcs.persistence.Players;
+import me.playajames.tmcs.persistence.PlayersTable;
 
-public class PlayerData {
+public class PlayerDataHandler {
 	
 	/*
 	 * Data Fields
@@ -33,9 +33,9 @@ public class PlayerData {
 		try {
 			Date now = new Date();
 			String uuid = player.getUniqueId().toString();
-			Players playerClass = (Players) new Players().get(uuid, null);
+			PlayersTable playerClass = (PlayersTable) new PlayersTable().get(uuid, null);
 			if (playerClass == null) {
-				playerClass = new Players();
+				playerClass = new PlayersTable();
 			} else {
 				return false;
 			}
@@ -45,7 +45,6 @@ public class PlayerData {
 			playerClass.setAddress(player.getAddress().toString());
 			playerClass.setInfractions(0);
 			playerClass.setMoney(0);
-			playerClass.setLicense(null);
 			playerClass.setKills(0);
 			playerClass.setDeaths(0);
 			playerClass.setMonsterKills(0);

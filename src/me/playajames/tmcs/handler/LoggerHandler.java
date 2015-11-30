@@ -8,7 +8,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-public class Logger {
+public class LoggerHandler {
 
 	public static ArrayList<String> cache = new ArrayList<String>();
 	
