@@ -4,7 +4,7 @@ public class LicensesTable {
 
 	private int id;
 	private String playerUuid;
-	private int licenseType;
+	private String licenseType;
 	private String timestamp;
 
 }

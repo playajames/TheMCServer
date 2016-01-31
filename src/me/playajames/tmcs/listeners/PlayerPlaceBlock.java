@@ -19,7 +19,6 @@ public class PlayerPlaceBlock implements Listener {
 			if (event.getItemInHand().getItemMeta().hasDisplayName()) {
 				new WeedStress().check(event);
 			}
-			
 		}
 	}
 }

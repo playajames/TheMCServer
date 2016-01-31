@@ -44,11 +44,17 @@ public final class WeedStress {
 	}
 	
 	public boolean check(BlockPlaceEvent event) {
+		Player player = event.getPlayer();
 		ItemMeta itemMeta = event.getPlayer().getItemInHand().getItemMeta();
 		if (itemMeta.getDisplayName().equals("Weed Seed")) {
 			if (itemMeta.getLore().contains(ChatColor.YELLOW + "Type: Stress")) {
-				plant(event.getPlayer(), event.getBlock());
-				return true;
+				if (player.hasPermission("tmcs.plant.weedseedstress")) {
+					plant(event.getPlayer(), event.getBlock());
+					return true;
+				} else {
+					event.setCancelled(true);
+					new PermissionsHandler().denyTask(player, "plant", "[Item:WeedSeedStress]");
+				}
 			}
 		}
 		return false;
@@ -83,31 +89,25 @@ public final class WeedStress {
 	
 	public void plant(Player player, Block block) {
 		Date now = new Date();
-		if (player.hasPermission("tmcs.plant.weedseedstress")) {
-			PlantsTable plantClass = new PlantsTable();
-			plantClass.setWorld(block.getWorld().getName());
-			plantClass.setLocX(block.getX());
-			plantClass.setLocY(block.getY());
-			plantClass.setLocZ(block.getZ());
-			plantClass.setType(9);
-			plantClass.setHealth(100);
-			plantClass.setGrowRate(growRate);
-			plantClass.setStage(0);
-			plantClass.setWaterLevel(0);
-			plantClass.setNutrients(0);
-			plantClass.setPlantedTime(now.toString());
-			plantClass.setLastCheckTime(now.toString());
-			Main.getPlugin().getDatabase().save(plantClass);
-			block.setType(Material.CROPS);
-			//if (GlobalData.debug) player.sendMessage("[Debug] Weed plant placed.");
-		} else {
-			new PermissionsHandler().denyTask(player, "plant", "[Item:WeedSeedStress]");
-		}
+		PlantsTable plantClass = new PlantsTable();
+		plantClass.setWorld(block.getWorld().getName());
+		plantClass.setLocX(block.getX());
+		plantClass.setLocY(block.getY());
+		plantClass.setLocZ(block.getZ());
+		plantClass.setType(9);
+		plantClass.setHealth(100);
+		plantClass.setGrowRate(growRate);
+		plantClass.setStage(0);
+		plantClass.setWaterLevel(0);
+		plantClass.setNutrients(0);
+		plantClass.setPlantedTime(now.toString());
+		plantClass.setLastCheckTime(now.toString());
+		Main.getPlugin().getDatabase().save(plantClass);
+		block.setType(Material.CROPS);
 	}
 	
 	public boolean canGrow(Block block, PlantsTable plantClass) {
 		if (plantClass.getStage() < 7) {
-			//if (GlobalData.debug) System.out.println("Plant can grow.");
 			grow(block, plantClass);
 			return true;
 		}

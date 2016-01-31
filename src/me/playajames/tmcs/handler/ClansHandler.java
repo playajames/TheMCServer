@@ -74,10 +74,10 @@ public class ClansHandler {
 	public void list(Player player) {
 		List<? extends ClansTable> clansList = new ClansTable().get();
 		if (clansList != null) {
-			player.sendMessage(ChatColor.YELLOW + "***Clan's List***");
+			player.sendMessage(ChatColor.YELLOW + "Clan's List");
 			int i = 1;
 			for (ClansTable clanClass : clansList) {
-				player.sendMessage(ChatColor.YELLOW + "" + i + ". " + clanClass.getName());
+				player.sendMessage(ChatColor.YELLOW + "" + i + ". " + ChatColor.GRAY + clanClass.getName());
 				i++;
 			}
 		} else {
@@ -132,7 +132,7 @@ public class ClansHandler {
 	}
 	
 	public void showHelp(Player player) {
-		//
+		player.sendMessage("This is the help command.");
 	}
 	
 	public void addMember(Player player, String name) {

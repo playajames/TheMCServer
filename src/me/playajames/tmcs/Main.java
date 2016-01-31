@@ -29,6 +29,7 @@ import me.playajames.tmcs.listeners.PlayerPlaceBlock;
 import me.playajames.tmcs.listeners.PlayerQuit;
 import me.playajames.tmcs.persistence.ClanMembersTable;
 import me.playajames.tmcs.persistence.ClansTable;
+import me.playajames.tmcs.persistence.JailTable;
 import me.playajames.tmcs.persistence.PlantsTable;
 import me.playajames.tmcs.persistence.PlayersTable;
 import me.playajames.tmcs.persistence.WarpsTable;
@@ -88,6 +89,8 @@ public class Main extends JavaPlugin {
 			getDatabase().find(WarpsTable.class).findRowCount();
 			getDatabase().find(ClansTable.class).findRowCount();
 			getDatabase().find(ClanMembersTable.class).findRowCount();
+			getDatabase().find(JailTable.class).findRowCount();
+			System.out.println("Database init successful.");
 		} catch(PersistenceException ex) {
 			System.out.println("Installing database for " + getDescription().getName() + " due to first time usage.");
 			installDDL();
@@ -97,11 +100,12 @@ public class Main extends JavaPlugin {
 	@Override
     public List<Class<?>> getDatabaseClasses() {
         List<Class<?>> list = new ArrayList<Class<?>>();
-        list.add(PlayersTable.class);
-        list.add(PlantsTable.class);
-        list.add(WarpsTable.class);
-        list.add(ClansTable.class);
-        list.add(ClanMembersTable.class);
+       list.add(PlayersTable.class);
+       list.add(PlantsTable.class);
+       list.add(WarpsTable.class);
+       list.add(ClansTable.class);
+       list.add(ClanMembersTable.class);
+       list.add(JailTable.class);
         return list;
     }
 }

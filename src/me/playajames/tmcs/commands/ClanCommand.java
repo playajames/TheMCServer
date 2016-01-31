@@ -21,12 +21,16 @@ public class ClanCommand implements CommandExecutor {
 				return false;
 			}
 			
-			else if (args[0].equals("create") && args.length == 4) {
+			else if (args[0].equals("create")) {
 				if (player.hasPermission("tmcs.command.clan.create")) {
-					if (args[3].equalsIgnoreCase("0") || args[3].equalsIgnoreCase("1")) {
-						new ClansHandler().create(args[1], args[2], Boolean.getBoolean(args[3]), player);
+					if (args.length == 4) {
+						if (args[3].equalsIgnoreCase("0") || args[3].equalsIgnoreCase("1")) {
+							new ClansHandler().create(args[1], args[2], Boolean.getBoolean(args[3]), player);
+						} else {
+							player.sendMessage(GlobalData.styleChatServer + "Invalid argument: " + args[3] + " Argument must be 0 or 1.");
+						}
 					} else {
-						player.sendMessage(GlobalData.styleChatServer + "Invalid argument: " + args[3] + " Argument must be 0 or 1.");
+						player.sendMessage(GlobalData.styleChatServer + "Invalid argument. Example: /clans create Name (Tag) 1");
 					}
 				} else {
 					new PermissionsHandler().denyCommand(player, cmd, args);
@@ -121,9 +125,9 @@ public class ClanCommand implements CommandExecutor {
 				}
 			} 
 			
-			else if (args[0].equalsIgnoreCase("help") && args.length == 2) {
+			else if (args[0].equalsIgnoreCase("help") && args.length == 1) {
 				if (player.hasPermission("tmcs.command.clan.help")) {
-					new ClansHandler().showHelp(player);;
+					new ClansHandler().showHelp(player);
 				} else {
 					new PermissionsHandler().denyCommand(player, cmd, args);
 				}

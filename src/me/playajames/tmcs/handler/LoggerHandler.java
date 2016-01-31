@@ -42,9 +42,13 @@ public class LoggerHandler {
 		String UUID = player.getUniqueId().toString();
 		String displayName = player.getDisplayName();
 		String action = "playerDeath";
-		String data = killer.getDisplayName();
+		String data = null;
+// ** Need to check for monster killed player.
+		if (killer instanceof Player) { 
+			data = killer.getDisplayName(); 
+		}
 		String address = player.getAddress().toString();
-		cache.add("INSERT INTO `logger`(`uuid`, `displayName`, `action`, `data`, `address`) VALUES ("+UUID+","+displayName+","+action+","+data+","+address+")");
+		cache.add("INSERT INTO `logger`(`uuid`, `displayName`, `action`, `data`, `address`) VALUES ("+UUID+","+displayName+","+action+","+ data +","+address+")");
 		return false;
 	}
 	

@@ -16,13 +16,10 @@ public class DrugDealer {
 	public static Inventory inventoryGui = Bukkit.createInventory(null, 9, "Drug Dealer");
 	private int size = 2;
 	
-	static {
-		inventoryGui.setItem(0, new ItemWeedStressSeed().getItem());
-		inventoryGui.setItem(1, new ItemWeedStress().getItem());
-	}
-	
 	public void openGui(Player player) {
 		if (player.hasPermission("tmcs.npc.drugdealer")) {
+			inventoryGui.setItem(0, new ItemWeedStressSeed().getItem());
+			inventoryGui.setItem(1, new ItemWeedStress().getItem());
 			player.openInventory(inventoryGui);
 		} else {
 			new PermissionsHandler().denyTask(player, "access npc", "Drug Dealer");

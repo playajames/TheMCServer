@@ -36,6 +36,8 @@ public class WarpsTable {
 	@NotNull
 	private float yaw;
 	@NotNull
+	private Boolean listed;
+	@NotNull
 	private String timestamp;
 	@Version
     @Column(columnDefinition = "timestamp default '2014-10-06 21:17:06'")
@@ -103,6 +105,14 @@ public class WarpsTable {
 	
 	public float getYaw() {
 		return this.yaw;
+	}
+	
+	public Boolean getListed() {
+		return this.listed;
+	}
+	
+	public void setListed(Boolean value) {
+		this.listed = value;
 	}
 	
 	public void setTimestamp(String value) {
