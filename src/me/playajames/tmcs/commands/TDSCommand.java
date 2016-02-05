@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import me.playajames.tmcs.GlobalData;
 import me.playajames.tmcs.handler.PermissionsHandler;
 
-public class TMCSCommand implements CommandExecutor {
+public class TDSCommand implements CommandExecutor {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -18,26 +18,26 @@ public class TMCSCommand implements CommandExecutor {
 			Player player = (Player) sender;
 			if (args.length > 0) {
 				if (args[0].equalsIgnoreCase("debug")) {
-					if (player.hasPermission("tmcs.debug")) {
+					if (player.hasPermission("tds.debug")) {
 						player.sendMessage(GlobalData.styleChatServer + "Theres nothing here.");
 					} else {
 						new PermissionsHandler().denyCommand(player, cmd, args);
 					}
 				} else {
-					player.sendMessage(GlobalData.styleChatServer + "I'm not sure what to do, use /tmcs help for more info.");
+					player.sendMessage(GlobalData.styleChatServer + "I'm not sure what to do, use /tds help for more info.");
 				}
 			} else {
-				player.sendMessage(GlobalData.styleChatServer + "I'm not sure what to do, use /tmcs help for more info.");
+				player.sendMessage(GlobalData.styleChatServer + "I'm not sure what to do, use /tds help for more info.");
 			}
 		} else if (sender instanceof ConsoleCommandSender) {
 			if (args.length > 0) {
 				if (args[0].equals("debug")) {
 					Bukkit.getLogger().info("Theres nothing here.");
 				} else {
-					Bukkit.getLogger().info("I'm not sure what to do, use /tmcs help for more info.");
+					Bukkit.getLogger().info("I'm not sure what to do, use /tds help for more info.");
 				}
 			} else {
-				Bukkit.getLogger().info("I'm not sure what to do, use /tmcs help for more info.");
+				Bukkit.getLogger().info("I'm not sure what to do, use /tds help for more info.");
 			}
 		}
 		return false;

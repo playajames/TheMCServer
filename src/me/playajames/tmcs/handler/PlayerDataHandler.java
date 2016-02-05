@@ -31,7 +31,6 @@ public class PlayerDataHandler {
 	
 	public boolean create(Player player) {
 		try {
-			Date now = new Date();
 			String uuid = player.getUniqueId().toString();
 			PlayersTable playerClass = (PlayersTable) new PlayersTable().get(uuid, null);
 			if (playerClass == null) {
@@ -48,8 +47,8 @@ public class PlayerDataHandler {
 			playerClass.setKills(0);
 			playerClass.setDeaths(0);
 			playerClass.setMonsterKills(0);
-			playerClass.setFirstJoinTimestamp(now.toString());
-			playerClass.setLastJoinTimestamp(now.toString());
+			playerClass.setFirstJoinTimestamp(new Date().toString());
+			playerClass.setLastJoinTimestamp(new Date().toString());
 			playerClass.setLastQuitTimestamp(null);
 			playerClass.setTimePlayed(0);
 			playerClass.setData(null);

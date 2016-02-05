@@ -5,8 +5,8 @@ author: playajames
 database: true
 
 commands:
-  tmcs:
-    description: The Minecraft Server main command.
+  tds:
+    description: The Drug Server main command.
   database:
     description: Database core control command.
   db:
@@ -25,3 +25,7 @@ commands:
     desctiption: Clan control command.
   clans:
     desctiption: Clan control command.
+  jail:
+    desctiption: Jail control command.
+  jails:
+    desctiption: Jail control command.

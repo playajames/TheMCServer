@@ -1,6 +1,10 @@
 Permission Nodes
 
 Commands:
+	TDS:
+		-tds.*
+	Debug:
+		-tds.debug
 	TMCS:
 		-tmcs.*
 	Test:
@@ -35,6 +39,11 @@ Commands:
 		-tmcs.command.clan.sethome
 		-tmcs.command.clan.home
 		-tmcs.command.clan.help
+	Jail:
+		-tds.command.jail.create
+		-tds.command.jail.remove
+		-tds.command.jail.player.sentance
+		-tds.command.jail.player.release
 Tasks:
 	NPC:
 		Drug Dealer:

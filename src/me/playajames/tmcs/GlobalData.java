@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 public class GlobalData {
 
 	// Default Style for all MCL Responses
-	public static String styleChatServer = ChatColor.DARK_GRAY + "[" + ChatColor.AQUA + "TMCS" + ChatColor.DARK_GRAY + "]" + ChatColor.YELLOW + " ";
+	public static String styleChatServer = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + "T" + ChatColor.YELLOW + "D" + ChatColor.DARK_GREEN + "S" + ChatColor.DARK_GRAY + "]" + ChatColor.YELLOW + " ";
 	
 	
 	// MySQL Connection Info

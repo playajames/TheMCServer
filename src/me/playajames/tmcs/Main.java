@@ -9,9 +9,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.playajames.tmcs.commands.ClanCommand;
 import me.playajames.tmcs.commands.DatabaseCommand;
+import me.playajames.tmcs.commands.JailCommand;
 import me.playajames.tmcs.commands.MoneyCommand;
 import me.playajames.tmcs.commands.SpawnCommand;
-import me.playajames.tmcs.commands.TMCSCommand;
+import me.playajames.tmcs.commands.TDSCommand;
 import me.playajames.tmcs.commands.TestCommand;
 import me.playajames.tmcs.commands.WarpCommand;
 import me.playajames.tmcs.items.CustomItems;
@@ -64,7 +65,7 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new EntityDamageByEntity(), this);
 
 		// Register Commands
-		this.getCommand("tmcs").setExecutor(new TMCSCommand());
+		this.getCommand("tds").setExecutor(new TDSCommand());
 		this.getCommand("database").setExecutor(new DatabaseCommand());
 		this.getCommand("db").setExecutor(new DatabaseCommand());
 		this.getCommand("test").setExecutor(new TestCommand());
@@ -74,6 +75,8 @@ public class Main extends JavaPlugin {
 		this.getCommand("spawn").setExecutor(new SpawnCommand());
 		this.getCommand("clan").setExecutor(new ClanCommand());
 		this.getCommand("clans").setExecutor(new ClanCommand());
+		this.getCommand("jail").setExecutor(new JailCommand());
+		this.getCommand("jails").setExecutor(new JailCommand());
 		
 		// Initiate Schedulers
 		new CoreScheduler(this).init();

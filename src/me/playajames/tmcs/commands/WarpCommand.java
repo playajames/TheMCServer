@@ -23,8 +23,7 @@ public class WarpCommand implements CommandExecutor {
 		
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			
-			
+
 			if (args.length == 0) {
 				player.sendMessage(GlobalData.styleChatServer + "Invalid argument. Use /warp help for more info.");
 				return false;
@@ -81,8 +80,8 @@ public class WarpCommand implements CommandExecutor {
 		player.sendMessage(ChatColor.YELLOW + "Alais: warp, warps");
 		player.sendMessage(ChatColor.YELLOW + "Usage:");
 		player.sendMessage(ChatColor.YELLOW + " - /warp create <warp_name> - Creates new warp with specified name at current player location.");
-		player.sendMessage(ChatColor.YELLOW + " - /warp update <warp_name> - Sets location of existing specified warp.");
-		player.sendMessage(ChatColor.YELLOW + " - /warp remove <warp_name> - Removes specified warp from warps.");
+		player.sendMessage(ChatColor.YELLOW + " - /warp update <warp_name> - Updates location of existing specified warp to players current location.");
+		player.sendMessage(ChatColor.YELLOW + " - /warp remove <warp_name> - Removes specified warp forever.");
 
 	}
 	
@@ -109,6 +108,7 @@ public class WarpCommand implements CommandExecutor {
 			warpClass.setLocZ(loc.getZ());
 			warpClass.setPitch(loc.getPitch());
 			warpClass.setYaw(loc.getYaw());
+			warpClass.setListed(true);
 			warpClass.setTimestamp(now.toString());
 			Main.getPlugin().getDatabase().save(warpClass);
 			player.sendMessage(GlobalData.styleChatServer + "Created a new warp named " + name + ".");

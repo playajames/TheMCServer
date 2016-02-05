@@ -1,0 +1,30 @@
+Jail Command Information
+
+alais: 
+	-jail
+	-jails
+
+CMDs:
+Create:
+	Description:
+		-Creates jail with default values.
+	Usage:
+		-/jail create <warp_to_jail>
+	Permission:
+		-tds.command.jail.create
+Remove:	
+	Removes specified jail from jail system.
+	/jail remove <warp_to_jail>
+		-tds.command.jail.remove
+Sentance:
+	Jails a player for specified duration
+	/jail sentance <playername> <duration>
+Release:
+	Releases player from jail immediatly.
+	/jail release <playername>
+
+Description:
+The jail is used as both a gameplay aspect as well as a punishment option.
+Players may be jailed when police find illegal items on that player.
+Players may also be jailed for rule breaking aspects. Jail durations
+can last anywhere from minutes to hours.
