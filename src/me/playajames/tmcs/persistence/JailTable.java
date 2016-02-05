@@ -93,8 +93,13 @@ public class JailTable {
     	return jailClass;
 	}
 	
-	public List<? extends JailTable> get() {
+	public List<? extends JailTable> getList() {
     	List<? extends JailTable> jailList = Main.getPlugin().getDatabase().find(this.getClass()).findList();
+    	return jailList;
+	}
+	
+	public List<? extends JailTable> getOccupiedList() {
+    	List<? extends JailTable> jailList = Main.getPlugin().getDatabase().find(this.getClass()).where().eq("occupied", true).findList();
     	return jailList;
 	}
 }

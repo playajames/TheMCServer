@@ -1,5 +1,7 @@
 package me.playajames.tmcs.persistence;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -9,6 +11,8 @@ import org.bukkit.Location;
 
 import com.avaje.ebean.validation.Length;
 import com.avaje.ebean.validation.NotNull;
+
+import me.playajames.tmcs.Main;
 
 @Entity()
 @Table(name = "Plants")
@@ -261,5 +265,10 @@ public class PlantsTable {
 		plantsClass = Bukkit.getPluginManager().getPlugin("TMCS").getDatabase().find(this.getClass()).where().ieq("locX", x).ieq("locY", y).ieq("locZ", z).findUnique();
 		if (plantsClass != null) return true;
 		return false;
+	}
+	
+	public List<? extends PlantsTable> get() {
+    	List<? extends PlantsTable> plantList = Main.getPlugin().getDatabase().find(this.getClass()).findList();
+    	return plantList;
 	}
 }

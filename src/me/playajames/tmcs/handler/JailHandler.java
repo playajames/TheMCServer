@@ -71,7 +71,7 @@ public class JailHandler {
 	}
 	
 	private JailTable getAvaliableJail() {
-		List<? extends JailTable> jailList = new JailTable().get();
+		List<? extends JailTable> jailList = new JailTable().getList();
 		for (JailTable jailClass : jailList) {
 			if (jailClass.getOccupied() == false) {
 				return jailClass;

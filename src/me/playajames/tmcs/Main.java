@@ -34,7 +34,7 @@ import me.playajames.tmcs.persistence.JailTable;
 import me.playajames.tmcs.persistence.PlantsTable;
 import me.playajames.tmcs.persistence.PlayersTable;
 import me.playajames.tmcs.persistence.WarpsTable;
-import me.playajames.tmcs.schedulers.CoreScheduler;
+import me.playajames.tmcs.schedulers.PlantScheduler;
 
 public class Main extends JavaPlugin {
 	
@@ -79,7 +79,7 @@ public class Main extends JavaPlugin {
 		this.getCommand("jails").setExecutor(new JailCommand());
 		
 		// Initiate Schedulers
-		new CoreScheduler(this).init();
+		new PlantScheduler().init();
 		
 		// Register Custom Items
 		new CustomItems().registerItems();
